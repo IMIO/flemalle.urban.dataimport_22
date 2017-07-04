@@ -1,0 +1,42 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="flemalle.urban.dataimport">
+
+
+    <adapter
+        for="flemalle.urban.dataimport.access.interfaces.IFlemalleDataImporter"
+        factory=".importer.FlemalleImportSource"
+        provides="imio.urban.dataimport.interfaces.IUrbanImportSource"
+        name="data source"
+    />
+
+    <adapter
+        for="imio.urban.dataimport.interfaces.IImportSettingsForm"
+        factory=".settings.FlemalleImporterFromImportSettings"
+        provides="imio.urban.dataimport.access.interfaces.IAccessImporter"
+        name="access licences custom"
+    />
+
+    <adapter
+        for="imio.urban.dataimport.interfaces.IImportSettingsForm"
+        factory=".settings.FlemalleImporterFromImportSettings"
+        provides="imio.urban.dataimport.access.interfaces.IAccessImporter"
+        name="access licences custom DeclaUrb"
+    />
+
+    <adapter
+        for="flemalle.urban.dataimport.access.interfaces.IFlemalleDataImporter"
+        factory=".importer.FlemalleValuesMapping"
+        provides="imio.urban.dataimport.interfaces.IValuesMapping"
+        name="values mapping"
+        />
+
+    <adapter
+        for="flemalle.urban.dataimport.access.interfaces.IFlemalleDataImporter"
+        factory=".importer.FlemalleAccessMapping"
+        provides="imio.urban.dataimport.interfaces.IObjectsMapping"
+        name="objects mapping"
+        />
+
+</configure>

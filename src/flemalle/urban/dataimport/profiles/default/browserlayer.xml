@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<layers>
+  <layer
+      name="flemalle.urban.dataimport"
+      interface="flemalle.urban.dataimport.interfaces.IFlemalleUrbanDataimportLayer"
+  />
+</layers>

@@ -1,0 +1,47 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="flemalle.urban.dataimport">
+
+    <i18n:registerTranslations directory="locales" />
+
+    <!-- Zope2 initialization -->
+    <five:registerPackage package="." initialize=".initialize" />
+
+    <!-- Include configuration for dependencies listed in setup.py -->
+    <includeDependencies package="." />
+    <include package=".access" />
+
+    <!-- Register the installation GenericSetup extension profile -->
+    <genericsetup:registerProfile
+        name="default"
+        title="flemalle.urban.dataimport"
+        directory="profiles/default"
+        description="Extension profile for flemalle.urban.dataimport."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:importStep
+        name="flemalle.urban.dataimport-postInstall"
+        title="flemalle.urban.dataimport post_install import step"
+        description="Post install import step from flemalle.urban.dataimport"
+        handler=".setuphandlers.post_install">
+    </genericsetup:importStep>
+
+    <browser:page
+        name="dataimport-controlpanel"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".settings.FlemalleImporterSettings"
+        permission="zope2.View"
+    />
+
+    <adapter
+        for="flemalle.urban.dataimport.settings.FlemalleImporterSettingsForm"
+        factory=".settings.FlemalleImporterFromImportSettings"
+        provides="imio.urban.dataimport.access.interfaces.IAccessImporter"
+    />
+
+</configure>
